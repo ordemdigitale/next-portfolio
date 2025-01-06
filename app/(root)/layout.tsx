@@ -1,4 +1,5 @@
 import React from 'react'
+import Navbar from '@/components/Navbar';
 
 const MainLayout = ({
   children,
@@ -7,7 +8,7 @@ const MainLayout = ({
 }>) => {
   return (
     <>
-      
+      <Navbar/>
       {children}
     </>
   )
