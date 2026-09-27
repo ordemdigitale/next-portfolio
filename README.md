@@ -17,9 +17,7 @@ Welcome to the repository for my personal portfolio website. This site serves as
 
 ## ✨ Features
 - **Responsive Layout:** Optimized for mobile, tablet, and desktop viewing.
-- **Project Showcase:** Interactive grid filtering projects by category or language.
-- **Dark/Light Mode:** Seamless theme shifting based on user preference.
-- **Contact Form:** Integrated validation using [Formspree](https://formspree.io) or EmailJS.
+- **Project Showcase:** Interactive grid filtering projects by category.
 - **Optimized Performance:** Fast load times achieving 95+ scores across all Lighthouse metrics.
 
 ---
