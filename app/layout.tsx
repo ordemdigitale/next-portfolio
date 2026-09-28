@@ -51,7 +51,7 @@ const poppins = localFont({
 
 export const metadata: Metadata = {
   title: "Lionel Dabo - Développeur d'applications",
-  description: "Développeur d'applications web, mobile basé à Abidjan",
+  description: "Développeur d'Applications basé à Abidjan — plateformes web & mobiles performantes, centrées sur l'utilisateur, taillées pour résoudre de vrais défis opérationnels.",
 };
 
 export default function RootLayout({
@@ -60,7 +60,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="fr">
       <body
         className={`${poppins.variable} ${unbounded.variable} overflow-x-hidden`}
       >
