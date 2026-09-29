@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -5,6 +9,25 @@ import { cn } from "@/lib/utils";
 import { nav } from "@/lib/data";
 
 export function Navbar() {
+    const pathname = usePathname();
+    const [activeHash, setActiveHash] = useState<string>("accueil");
+
+    // Keep active state in synch if the user navigates via back/forward
+    // or lands directly on a hash URL.
+    useEffect(() => {
+        const syncHash = () => setActiveHash(window.location.hash || "#accueil");
+        syncHash();
+        window.addEventListener("hashchange", syncHash);
+        return () => window.removeEventListener("hashchange", syncHash);
+    }, []);
+
+    function isActive(href: string) {
+        if (href.startsWith("#")) {
+            return pathname === "/" && activeHash === href;
+        }
+        return pathname === href;
+    }
+
   return (
     <header className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
       <nav className="font-poppins glass-nav flex w-full max-w-3xl items-center justify-between gap-1 rounded-full px-4 py-2 shadow-pill-soft transition-all duration-300 sm:gap-2">
@@ -22,21 +45,29 @@ export function Navbar() {
         </a>
 
         <div className="flex items-center text-xs font-medium text-muted-text sm:text-sm">
-          {nav.links.map((link, i) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className={cn(
-                "rounded-full px-3 py-1.5 transition-all",
-                i === 0
-                  ? "font-semibold text-charcoal hover:text-charcoal"
-                  : "hover:bg-black/5 hover:text-charcoal",
-                link.hideOnMobile && "hidden md:inline-block"
-              )}
-            >
-              {link.label}
-            </a>
-          ))}
+
+            {nav.links.map((link) => {
+                const active = isActive(link.href);
+                return (
+                    <a
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => {
+                            if (link.href.startsWith("#")) setActiveHash(link.href);
+                        }}
+                        aria-current={active ? "page" : undefined}
+                        className={cn(
+                            "rounded-full px-3 py-1.5 transition-all",
+                            active
+                                ? "bg-black/5 text-charcoal"
+                                : "hover:bg-black/5 hover:text-charcoal",
+                            link.hideOnMobile && "hidden md:inline-block"
+                        )}
+                    >
+                        {link.label}
+                    </a>
+                );
+            })}
         </div>
 
         <Button asChild size="sm" className="text-xs sm:text-sm">
